@@ -141,13 +141,13 @@ public class snakeGenerator : MonoBehaviour
 
         playerBox = Instantiate(Resources.Load<GameObject>("Prefabs/Square"), new Vector3(0f, 0f), Quaternion.identity);
 
-        timerUI = Instantiate(Resources.Load<GameObject>("Prefabs/Timer"), new Vector3(0f, 0f), Quaternion.identity);
+       timerUI = Instantiate(Resources.Load<GameObject>("Prefabs/Timer"), new Vector3(0f, 0f), Quaternion.identity);
 		
 		Obsticle = Instantiate(Resources.Load<GameObject>("Prefabs/Obsticle"), new Vector3(randomNumLeft, randomNumY), Quaternion.identity);
 		Obsticle2 = Instantiate(Resources.Load<GameObject>("Prefabs/Obsticle"), new Vector3(randomNumRight, randomNumY2), Quaternion.identity);
 
         //the default value for the timer is started
-        timerUI.GetComponentInChildren<timerManager>().timerStarted = true;
+       //timerUI.GetComponentInChildren<timerManager>().timerStarted = true;
 
        
 		
