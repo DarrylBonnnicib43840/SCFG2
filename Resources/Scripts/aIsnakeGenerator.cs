@@ -90,12 +90,13 @@ public class aIsnakeGenerator : MonoBehaviour
     void Start()
     {
 		
-        AisnakeColor = Color.red;
         
 		
 		
-		
+		AisnakeColor = Color.red;
+        
 		StartCoroutine(wait());
+		
 			
 			
 			
@@ -123,15 +124,8 @@ public class aIsnakeGenerator : MonoBehaviour
         yield return null;
     }
 	
-	IEnumerator wait(){
-
-		
-		
-			yield return new WaitForSeconds(4f);
-			
-			
-			
-			//enemyBox = Instantiate(Resources.Load<GameObject>("Prefabs/Square3"), new Vector3(-9f, -9f), Quaternion.identity);
+	IEnumerator others(){
+		//enemyBox = Instantiate(Resources.Load<GameObject>("Prefabs/Square3"), new Vector3(-9f, -9f), Quaternion.identity);
 			
 			pathParent = new GameObject();
 
@@ -151,12 +145,19 @@ public class aIsnakeGenerator : MonoBehaviour
 
 
 			drawTail(Aisnakelength);
-			
+		
+		yield return null;
+		
+	}
 	
+	IEnumerator wait(){
+
 		
 		
-		
-		
+			yield return new WaitForSeconds(4f);
+			
+			StartCoroutine(others());
+			
 	
 	}
     

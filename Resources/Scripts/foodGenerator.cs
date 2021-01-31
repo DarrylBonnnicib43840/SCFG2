@@ -64,6 +64,8 @@ public class foodGenerator : MonoBehaviour
     }
 	
 
+	
+
     public IEnumerator generateFood()
     {
         while(true)

@@ -70,11 +70,13 @@ public class snakeGenerator : MonoBehaviour
     foodGenerator fgen;
     snakeheadController snakeController;
 	
-	public GameObject playerBox;
+	//public GameObject playerBox;
+	
+	
 
     int pastpositionslimit = 100;
 
-    GameObject breadcrumbBox,pathParent,timerUI, EndPoint;
+    GameObject breadcrumbBox,pathParent,timerUI,EndPoint,playerBox;
 
     List<positionRecord> pastPositions;
 
@@ -117,7 +119,7 @@ public class snakeGenerator : MonoBehaviour
 		
 		EndPoint = Instantiate(Resources.Load<GameObject>("Prefabs/EndPoint"), new Vector3(8f, 8f), Quaternion.identity);
 
-        //playerBox = Instantiate(Resources.Load<GameObject>("Prefabs/playersquare"), new Vector3(5f, 0f), Quaternion.identity);
+        playerBox = Instantiate(Resources.Load<GameObject>("Prefabs/playersquare"), new Vector3(0f, 0f), Quaternion.identity);
 
 		timerUI = Instantiate(Resources.Load<GameObject>("Prefabs/Timer"), new Vector3(0f, 0f), Quaternion.identity);
 		

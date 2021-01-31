@@ -66,10 +66,17 @@ public class snakeheadController : MonoBehaviour
 			Debug.Log("Restart Scene");
 			//GameManager.snakeLength = 0;
 			string currentSceneName = SceneManager.GetActiveScene().name;
-			SceneManager.LoadScene("SnakeScene2");
+			SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);
 		}
 		
 		if(collision.CompareTag("Obsticle")){
+			Debug.Log("Restart Scene");
+			
+			string currentSceneName = SceneManager.GetActiveScene().name;
+			SceneManager.LoadScene(currentSceneName);
+		}
+		
+		if(collision.CompareTag("Enemy")){
 			Debug.Log("Restart Scene");
 			
 			string currentSceneName = SceneManager.GetActiveScene().name;
