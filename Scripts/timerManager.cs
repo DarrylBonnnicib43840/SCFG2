@@ -6,11 +6,38 @@ using UnityEngine.UI;
 public class timerManager : MonoBehaviour
 {
 
+	
+
+	public static timerManager instance;
+
     public bool timerStarted;
 
     float timerValue=0f;
 
-    Text timerText;
+    public Text timerText;
+	
+	public GameObject GameManager;
+	
+	
+	 public InputField inputField;
+	
+	
+	
+	void Awake(){
+		MakeSingleton();
+	}
+	
+	private void MakeSingleton(){
+		if(instance !=null){
+			Destroy (gameObject);
+		} else{
+			instance = this;
+			DontDestroyOnLoad (gameObject);
+			DontDestroyOnLoad (GameManager);
+		
+		}
+	}
+	
     
 
     IEnumerator timer()
@@ -47,9 +74,14 @@ public class timerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		
+		GetComponentInChildren<timerManager>().timerStarted = true;
+		 
         //the text component attached to THIS object
         timerText = GetComponent<Text>();
         StartCoroutine(timer()); 
+		
+		 
     }
 
     

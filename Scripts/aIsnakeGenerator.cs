@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public class positionRecord
+public class positionRecord2
 
 {
 
@@ -30,14 +30,14 @@ public class positionRecord
     {
         if (obj == null)
             return false;
-        positionRecord p = obj as positionRecord;
+        positionRecord2 p = obj as positionRecord2;
         if ((System.Object)p == null)
             return false;
         return position == p.position;
     }
 
 
-    public bool Equals(positionRecord o)
+    public bool Equals(positionRecord2 o)
     {
         if (o == null)
             return false;
@@ -62,133 +62,49 @@ public class positionRecord
     public GameObject BreadcrumbBox { get => breadcrumbBox; set => breadcrumbBox = value; }
 }
 
-public class snakeGenerator : MonoBehaviour
+public class aIsnakeGenerator : MonoBehaviour
 {
 
-    public int snakelength;
+    public int Aisnakelength;
 
-    foodGenerator fgen;
-    snakeheadController snakeController;
-	
-	//public GameObject playerBox;
-	
-	
+	public GameObject enemyBox;
 
     int pastpositionslimit = 100;
 
-    GameObject breadcrumbBox,pathParent,timerUI,EndPoint,playerBox;
+    GameObject breadcrumbBox,pathParent;
 
-    List<positionRecord> pastPositions;
+    List<positionRecord2> pastPositions;
 
     int positionorder = 0;
 
     bool firstrun = true;
 	
 	
+	
 
-    Color snakeColor;
+    Color AisnakeColor;
 
-
-
-    IEnumerator waitToGenerateFood()
-    {
-        while (true)
-        {
-            if (!firstrun)
-            {
-                StartCoroutine(fgen.generateFood());
-                break;
-            }
-
-            yield return null;
-
-        }
-        yield return null;
-    }
 
 
     // Start is called before the first frame update
     void Start()
     {
 		
-		
-		
-		
-
-        snakeColor = Color.green;
-		
-		EndPoint = Instantiate(Resources.Load<GameObject>("Prefabs/EndPoint"), new Vector3(8f, 8f), Quaternion.identity);
-
-        playerBox = Instantiate(Resources.Load<GameObject>("Prefabs/playersquare"), new Vector3(0f, 0f), Quaternion.identity);
-
-		timerUI = Instantiate(Resources.Load<GameObject>("Prefabs/Timer"), new Vector3(0f, 0f), Quaternion.identity);
-		
-		//Obsticle = Instantiate(Resources.Load<GameObject>("Prefabs/Obsticle"), new Vector3(randomNumLeft, randomNumY), Quaternion.identity);
-		//Obsticle2 = Instantiate(Resources.Load<GameObject>("Prefabs/Obsticle"), new Vector3(randomNumRight, randomNumY2), Quaternion.identity);
-
-        //the default value for the timer is started
-       //timerUI.GetComponentInChildren<timerManager>().timerStarted = true;
-
-       
-		
-
-        pathParent = new GameObject();
-
-        pathParent.transform.position = new Vector3(0f, 0f);
-
-        pathParent.name = "Path Parent";
-
         
-        breadcrumbBox = Resources.Load <GameObject>("Prefabs/Square");
-
-        playerBox.GetComponent<SpriteRenderer>().color = Color.black;
-
-        //move the box with the arrow keys
-        playerBox.AddComponent<snakeheadController>();
-
-        //playerBox.name = "Black player box";
-
-        pastPositions = new List<positionRecord>();
-
-        fgen = Camera.main.GetComponent<foodGenerator>();
-
-        StartCoroutine(waitToGenerateFood());
-
-        drawTail(snakelength);
+		
+		
+		AisnakeColor = Color.red;
+        
+		StartCoroutine(wait());
+		
+			
+			
+			
+		
        
     }
 
-    //TASK 1: create a coroutine based on this code that when the X key is pressed, the box is going to go through
-    //all its past positions, until it gets to the beginning. The speed should be one position every second
-    IEnumerator reverseMoves()
-    {
-        //1. check that we have more than 5 moves, otherwise don't run
-        if (pastPositions.Count < 5)
-        {
-            yield return null;
-        }
-
-
-        //2. reverse the list of moves, to get the moves I want to go back to
-        List<positionRecord> reversedPositions = new List<positionRecord>();
-
-        reversedPositions = pastPositions;
-
-        reversedPositions.Reverse();
-
-
-        //3. iterate through the moves, waiting for one second every move
-        foreach(positionRecord p in reversedPositions)
-        {
-            playerBox.transform.position = p.Position;
-
-            yield return new WaitForSeconds(1f);
-        }
-
-
-        yield return null;
-    }
-
+ 
 
 
     IEnumerator Task5()
@@ -198,7 +114,7 @@ public class snakeGenerator : MonoBehaviour
         while(xpos < 10f)
         {
             Debug.Log(xpos);
-            playerBox.transform.position += new Vector3(1f, 0f);
+            enemyBox.transform.position += new Vector3(1f, 0f);
             xpos++;
             savePosition();
             yield return new WaitForSeconds(0.1f);
@@ -207,6 +123,43 @@ public class snakeGenerator : MonoBehaviour
         
         yield return null;
     }
+	
+	IEnumerator others(){
+		//enemyBox = Instantiate(Resources.Load<GameObject>("Prefabs/Square3"), new Vector3(-9f, -9f), Quaternion.identity);
+			
+			pathParent = new GameObject();
+
+			pathParent.transform.position = new Vector3(0f, 0f);
+
+			pathParent.name = "Path Parent";
+
+			
+			breadcrumbBox = Resources.Load <GameObject>("Prefabs/Square");
+
+			enemyBox.GetComponent<SpriteRenderer>().color = Color.red;
+
+		   
+			//enemyBox.name = "Enemy player box";
+
+			pastPositions = new List<positionRecord2>();
+
+
+			drawTail(Aisnakelength);
+		
+		yield return null;
+		
+	}
+	
+	IEnumerator wait(){
+
+		
+		
+			yield return new WaitForSeconds(4f);
+			
+			StartCoroutine(others());
+			
+	
+	}
     
 
     // Update is called once per frame
@@ -215,7 +168,7 @@ public class snakeGenerator : MonoBehaviour
     {
         //foreach position in the list
 
-        foreach (positionRecord p in pastPositions)
+        foreach (positionRecord2 p in pastPositions)
         {
             
             if (p.Position == positionToCheck)
@@ -236,15 +189,15 @@ public class snakeGenerator : MonoBehaviour
 
     void savePosition()
     {
-        positionRecord currentBoxPos = new positionRecord();
+        positionRecord2 currentBoxPos = new positionRecord2();
 
-        currentBoxPos.Position = playerBox.transform.position;
+        currentBoxPos.Position = enemyBox.transform.position;
         positionorder++;
         currentBoxPos.PositionOrder = positionorder;
 
-        if (!boxExists(playerBox.transform.position))
+        if (!boxExists(enemyBox.transform.position))
         {
-            currentBoxPos.BreadcrumbBox = Instantiate(breadcrumbBox, playerBox.transform.position, Quaternion.identity);
+            currentBoxPos.BreadcrumbBox = Instantiate(breadcrumbBox, enemyBox.transform.position, Quaternion.identity);
 
             currentBoxPos.BreadcrumbBox.transform.SetParent(pathParent.transform);
 
@@ -270,12 +223,12 @@ public class snakeGenerator : MonoBehaviour
     }
 
     
-    public void changeSnakeColor(int length,Color color)
+     void changeSnakeColor(int length,Color color)
     {
         int tailStartIndex = pastPositions.Count - 1;
         int tailEndIndex = tailStartIndex - length;
         
-        snakeColor = color;
+        AisnakeColor = color;
 
         for (int snakeblocks = tailStartIndex;snakeblocks>tailEndIndex;snakeblocks--)
         {
@@ -303,11 +256,18 @@ public class snakeGenerator : MonoBehaviour
 
 
                 pastPositions[snakeblocks].BreadcrumbBox = Instantiate(breadcrumbBox, pastPositions[snakeblocks].Position, Quaternion.identity);
-                pastPositions[snakeblocks].BreadcrumbBox.GetComponent<SpriteRenderer>().color = snakeColor;
+                
+				
+					
+				pastPositions[snakeblocks].BreadcrumbBox.GetComponent<SpriteRenderer>().color = AisnakeColor;
+				
+					
+				
+				}
 
             }
 
-        } 
+         
 
         if (firstrun)
         {
@@ -315,7 +275,7 @@ public class snakeGenerator : MonoBehaviour
             //I don't have enough positions in the past positions list
             for(int count =length;count>0;count--)
             {
-                positionRecord fakeBoxPos = new positionRecord();
+                positionRecord2 fakeBoxPos = new positionRecord2();
                 float ycoord = count * -1;
                 fakeBoxPos.Position = new Vector3(0f, ycoord);
 
@@ -334,7 +294,7 @@ public class snakeGenerator : MonoBehaviour
 
 
     //if hit tail returns true, the snake has hit its tail
-    public bool hitTail(Vector3 headPosition, int length)
+     bool hitTail(Vector3 headPosition, int length)
     {
         int tailStartIndex = pastPositions.Count - 1;
         int tailEndIndex = tailStartIndex - length;
@@ -361,7 +321,7 @@ public class snakeGenerator : MonoBehaviour
     void clearTail()
     {
         cleanList();
-        foreach (positionRecord p in pastPositions)
+        foreach (positionRecord2 p in pastPositions)
         {
            // Debug.Log("Destroy tail" + pastPositions.Count);
             Destroy(p.BreadcrumbBox);
@@ -374,52 +334,6 @@ public class snakeGenerator : MonoBehaviour
 
     void Update()
     {
-		if(snakelength < 6){
-			EndPoint.GetComponent<SpriteRenderer>().color = Color.black;
-			EndPoint.GetComponent<CircleCollider2D>().enabled=false;
-			
-		}
-		if(snakelength >= 6){
-			EndPoint.GetComponent<SpriteRenderer>().color = Color.white;
-			EndPoint.GetComponent<CircleCollider2D>().enabled=true;
-		}
-		
-		
-		
-		
-		
-        if (Input.anyKeyDown && !((Input.GetMouseButtonDown(0)
-            || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))) && !Input.GetKeyDown(KeyCode.X) && !Input.GetKeyDown(KeyCode.Z) && !Input.GetKeyDown(KeyCode.Space))
-        {
-            //Debug.Log("a key was pressed "+Time.time);
-          
-            savePosition();
-
-            //draw a tail of length 4
-            drawTail(snakelength);
-
-
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            StartCoroutine(reverseMoves());
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            clearTail();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(snakeController.automoveCoroutine());
-          //  StartCoroutine(Task5());
-        }
-		
-		
 
 
     }

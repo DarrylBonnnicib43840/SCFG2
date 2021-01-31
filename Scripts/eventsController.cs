@@ -16,12 +16,12 @@ public class eventsController : MonoBehaviour
         
         //button callback method 1
         registerButton.GetComponent<Button>().onClick.AddListener(
-            () => 
-            { 
+            () => //round backets equals and arrow
+            { //curly bracket start
                 Debug.Log("register User here!");
                 Debug.Log(myVar);
-            }    
-         ); 
+            } //curly bracket    
+         ); //round bracket semi colon
 
         //button callback method 2
         registerButton.GetComponent<Button>().onClick.AddListener(registerButtonPressed);
@@ -29,10 +29,10 @@ public class eventsController : MonoBehaviour
 
         //button callback method 3
         registerButton.GetComponent<Button>().onClick.AddListener(
-            delegate { 
-                registerButtonPressedWithParam("Hello hello");  
-                }  
-            ); 
+            delegate { //curly brackets
+                registerButtonPressedWithParam("Hello hello");  //inner method
+                }  //end curly brackets
+            ); //end delegate
 
         //registering button callbacks
     }
