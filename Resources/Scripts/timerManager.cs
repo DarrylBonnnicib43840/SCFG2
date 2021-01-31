@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class timerManager : MonoBehaviour
 {
@@ -19,6 +20,13 @@ public class timerManager : MonoBehaviour
 	public GameObject GameManager;
 	
 	
+	 public InputField inputField;
+	 
+	 bool isPaused = false;
+	 
+	 Coroutine lastRoutine = null;
+	 
+	
 	
 	
 	void Awake(){
@@ -35,12 +43,15 @@ public class timerManager : MonoBehaviour
 		
 		}
 	}
+	
     
 
     IEnumerator timer()
     {
+		
         while(true)
         { 
+	
             if (timerStarted)
             {
                 //measure the time
@@ -72,14 +83,51 @@ public class timerManager : MonoBehaviour
     void Start()
     {
 		
+		
+		
+		
 		GetComponentInChildren<timerManager>().timerStarted = true;
 		 
         //the text component attached to THIS object
         timerText = GetComponent<Text>();
-        StartCoroutine(timer()); 
+		
+		
+ 
+		lastRoutine = StartCoroutine(timer());
+         
 		
 		 
     }
+	
+	void Update(){
+		
+		
+		
+		
+		Scene currentScene = SceneManager.GetActiveScene ();
+		string sceneName = currentScene.name;
+		
+		
+		if(sceneName == "SnakeEndScene"){
+			
+			timerStarted = false;
+			
+		}
+		
+		if(sceneName == "SnakeScene1"){
+			
+			timerStarted = true;
+		}
+		
+		if(sceneName == "SnakeWinScene"){
+			
+			
+			StopCoroutine(lastRoutine);
+			
+		}
+		
+		
+	}
 
     
 }

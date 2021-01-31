@@ -2,26 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class startGameController : MonoBehaviour
 {
-    GameObject startButton;
+  
 
     // Start is called before the first frame update
     void Start()
     {
-        startButton = Instantiate(Resources.Load<GameObject>("Prefabs/ButtonPrefab"), new Vector3(0f, 0f), Quaternion.identity);
-
-        startButton.GetComponentInChildren<Text>().text = "Start Snake!";
-
-        startButton.GetComponentInChildren<Button>().onClick.AddListener(
-                () =>
-                {
-                    Camera.main.GetComponent<snakeGenerator>().enabled = true;
-                    Camera.main.GetComponent<foodGenerator>().enabled = true;
-                    startButton.SetActive(false);
-                });
-
+       
      
     }
 
@@ -30,4 +20,9 @@ public class startGameController : MonoBehaviour
     {
         
     }
+	
+	public void playGame(){
+		
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+	}
 }

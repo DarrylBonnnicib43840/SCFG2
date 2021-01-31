@@ -72,15 +72,14 @@ public class snakeheadController : MonoBehaviour
 		if(collision.CompareTag("Obsticle")){
 			Debug.Log("Restart Scene");
 			
-			string currentSceneName = SceneManager.GetActiveScene().name;
-			SceneManager.LoadScene(currentSceneName);
+			
+			SceneManager.LoadScene("SnakeEndScene");
 		}
 		
 		if(collision.CompareTag("Enemy")){
 			Debug.Log("Restart Scene");
 			
-			string currentSceneName = SceneManager.GetActiveScene().name;
-			SceneManager.LoadScene(currentSceneName);
+			SceneManager.LoadScene("SnakeEndScene");
 		}
 		
 		
