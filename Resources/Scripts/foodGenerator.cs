@@ -135,15 +135,7 @@ public class foodGenerator : MonoBehaviour
 		
 	}
 	
-	void OnTriggerEnter2D(Collider2D collision){
-		if(collision.CompareTag("Obsticle")){
-			Debug.Log("Food Destroyed");
-			
-			Destroy(foodObject);
-		}
-		
-		
-	}
+	
 
 
     

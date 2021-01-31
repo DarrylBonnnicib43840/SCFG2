@@ -77,6 +77,8 @@ public class snakeheadController : MonoBehaviour
 		}
 		
 		
+		
+		
 	}
 
     // Update is called once per frame
